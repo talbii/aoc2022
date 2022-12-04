@@ -1,0 +1,34 @@
+#include "bits/stdc++.h"
+using namespace std;
+
+#define int int64_t
+
+/* Returns true if [a,b] subseteq [X, Y] */
+#define contains(X, Y, a, b) ((a >= X) && (b <= Y))
+
+signed main(void) {
+    string s;
+    int count = 0;
+
+    while(getline(cin, s)) {
+        for(auto &c : s) if (c == ',') c = '-';
+        
+        int x,y,a,b;
+        istringstream stream(s);
+        string num;
+
+        /* Not a great solution at all, but suffices for now. */
+        array a_ref { &x,&y,&a,&b };
+        int i = 0;
+
+        while(getline(stream, num, '-')) {
+            *a_ref[i++] = stoll(num);
+        }
+
+
+        if(contains(x,y,a,b)) ++count;
+        else if(contains(a,b,x,y)) ++count; 
+    }
+
+    cout << "The number of fully contained ranges is: " << count << '\n';
+}
